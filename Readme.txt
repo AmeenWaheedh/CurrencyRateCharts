@@ -1,0 +1,1 @@
+pyside6-uic widget.ui > ui_widget.py
