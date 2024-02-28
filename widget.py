@@ -28,15 +28,18 @@ class Widget(QWidget, Ui_Widget):
         self.currency_data = self.df[self.df['Cur'] == self.cmb_currency.currentText()]
         
         self.figure = Figure(figsize=(1,1))
-        
-        self.axes = self.figure.add_subplot(111)
+        self.figure.tight_layout()
+        self.axes = self.figure.add_subplot(111, position=[0.1, 0.27, 0.85, 0.66])
+        self.axes.tick_params(axis = 'x', labelrotation = 90)
+      #  self.axes.set_xticklabels(self.currency_data['Date'], rotation = 90)
         self.axes.plot(self.currency_data['Date'],self.currency_data[self.currency_action])
+        
         self.canvas = FigureCanvasQTAgg(self.figure)
         self.layout = QVBoxLayout(self)
         
-        self.layout.addWidget(self.canvas)
-        self.frame_chart.setLayout(self.layout)
+        self.layout.addWidget(self.canvas, stretch = 0)
         
+        self.frame_chart.setLayout(self.layout)
 
         self.cmb_currency.currentIndexChanged.connect(self.on_combo_box_changed)
         self.radio_Buy.clicked.connect(self.on_radio_buy_clicked)
@@ -45,19 +48,25 @@ class Widget(QWidget, Ui_Widget):
     def on_combo_box_changed(self):
         self.currency_data = self.df[self.df['Cur'] == self.cmb_currency.currentText()]
       #  print (self.currency_data)
-        self.axes.cla()
         
+        self.axes.cla()
+        self.axes.tick_params(axis = 'x', labelrotation = 90)
+      #  self.axes.set_xticklabels(self.currency_data['Date'], rotation = 90)
         self.axes.plot(self.currency_data['Date'],self.currency_data[self.currency_action])
         self.canvas.draw()
 
     def on_radio_buy_clicked(self):
         self.currency_action = 'Buy'
         self.axes.cla()
+     #   self.axes.set_xticklabels(self.currency_data['Date'], rotation = 90)
+        self.axes.tick_params(axis = 'x', labelrotation = 90)
         self.axes.plot(self.currency_data['Date'], self.currency_data[self.currency_action])
         self.canvas.draw()
     
     def on_radio_sell_clicked(self):
         self.currency_action = 'Sell'
         self.axes.cla()
+       # self.axes.set_xticklabels(self.currency_data['Date'], rotation = 90)
+        self.axes.tick_params(axis = 'x', labelrotation = 90)
         self.axes.plot(self.currency_data['Date'], self.currency_data[self.currency_action])
         self.canvas.draw()

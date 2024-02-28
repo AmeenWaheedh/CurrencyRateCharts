@@ -35,7 +35,7 @@ class Ui_Widget(object):
         self.label.setFont(font)
         self.frame_chart = QFrame(Widget)
         self.frame_chart.setObjectName(u"frame_chart")
-        self.frame_chart.setGeometry(QRect(20, 60, 611, 381))
+        self.frame_chart.setGeometry(QRect(20, 40, 611, 400))
         self.frame_chart.setFrameShape(QFrame.StyledPanel)
         self.frame_chart.setFrameShadow(QFrame.Raised)
         self.frame_BuySell = QFrame(Widget)
